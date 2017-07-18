@@ -20,10 +20,10 @@ deb-copy: build
 	docker run --rm -v $$PWD:/shared:rw -it $(BUILD_TAG) /bin/bash -c "cp /root/*.deb /shared"
 
 rpm-upload: rpm-copy
-	scp *.rpm zandbelt@mod-auth-openidc.org:/var/www/mod-auth-openidc.org/download
+	echo "scp *.rpm zandbelt@mod-auth-openidc.org:/var/www/mod-auth-openidc.org/download"
 
 deb-upload: deb-copy
-	scp *.deb zandbelt@mod-auth-openidc.org:/var/www/mod-auth-openidc.org/download
+	echo "scp *.deb zandbelt@mod-auth-openidc.org:/var/www/mod-auth-openidc.org/download"
 
 rpm-clean:
 	rm -f *.rpm

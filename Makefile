@@ -1,11 +1,12 @@
 
-DISTS := $(shell find . -type d -depth 1 -print | grep -v "\./\.")
+DISTS := $(shell find . -maxdepth 1 -type d -print | grep -v "\./\.")
+
 
 ACTIONS = build run
 
 all: 
 	@for DIST in $(DISTS) ; do \
-	  VERSIONS=`find $$DIST -type d -depth 1 -print` ; \
+	  VERSIONS=`find $$DIST -maxdepth 1 -type d -print` ; \
 	    for VERSION in $$VERSIONS ; do \
 	      for ACTION in $(ACTIONS) ; do \
 	        if [ -x $$VERSION/$$ACTION ] ; then \
@@ -17,7 +18,7 @@ all:
 
 run: 
 	@for DIST in $(DISTS) ; do \
-	  VERSIONS=`find $$DIST -type d -depth 1 -print` ; \
+	  VERSIONS=`find $$DIST -maxdepth 1 -type d -print` ; \
 	    for VERSION in $$VERSIONS ; do \
 	      if [ -x $$VERSION/run ] ; then \
 	        $(MAKE) -C $$VERSION/run || exit 1; \
@@ -27,7 +28,7 @@ run:
 
 clean: 
 	@for DIST in $(DISTS) ; do \
-	  VERSIONS=`find $$DIST -type d -depth 1 -print` ; \
+	  VERSIONS=`find $$DIST -maxdepth 1 -type d -print` ; \
 	    for VERSION in $$VERSIONS ; do \
 	      for ACTION in $(ACTIONS) ; do \
 	        if [ -x $$VERSION/$$ACTION ] ; then \
